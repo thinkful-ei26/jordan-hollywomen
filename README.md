@@ -1,3 +1,3 @@
 # About HollyWomen
 
-HollyWomen is an app that allows users to see how many women, in direct comparison to men, were cast on their favorite films or TV shows. HollyWomen is designed to inform users on the gender inclusivity of a specific film or tv project. A user may search film and TV titles, with an aditional option to save them to a 'Must Watch' or 'Don't Watch' list. This app is intended for educational purposes only. 
+HollyWomen is an app that allows users to see how many women, in direct comparison to men, were cast in their favorite films or TV shows. HollyWomen is designed to inform users on the gender inclusivity of a specific film or tv project. A user may search film and TV titles, with an aditional option to save them to a 'Must Watch' or 'Don't Watch' list. This app is intended for educational purposes only. 
