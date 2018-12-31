@@ -23,34 +23,7 @@ app.use(
   })
 );
 
-const cast = [
-  {
-    "cast_id": 4,
-    "character": "The Narrator",
-    "credit_id": "52fe4250c3a36847f80149f3",
-    "gender": 2,
-    "id": 819,
-    "name": "Edward Norton",
-    "order": 0,
-    "profile_path": "/5XBzD5WuTyVQZeS4VI25z2moMeY.jpg"
-},
-{
-    "cast_id": 5,
-    "character": "Tyler Durden",
-    "credit_id": "52fe4250c3a36847f80149f7",
-    "gender": 2,
-    "id": 287,
-    "name": "Brad Pitt",
-    "order": 1,
-    "profile_path": "/kU3B75TyRiCgE270EyZnHjfivoq.jpg"
-}
-]
-
-app.get('/movie/cast', (req, res) => {
-  res.status(200).json(cast);
-});
-
-//get length of cast divided by females to get gender score
+//search by movie title
 app.get('/search/:movieTitle', (req, res) => {
   fetch(`https://api.themoviedb.org/3/search/movie?api_key=13842c72b65b743bc68b644cf060c727&query=${req.params.movieTitle}`)
   .then(res => res.json())
@@ -59,12 +32,31 @@ app.get('/search/:movieTitle', (req, res) => {
   })
 });
 
-app.get('/search/:tvTitle', (req, res) => {
-  fetch(`https://api.themoviedb.org/3/search/tv?api_key=13842c72b65b743bc68b644cf060c727&query=${req.params.tvTitle}&append_to_response=images`)
+//search by tv title
+app.get('/search/tv/:tvTitle', (req, res) => {
+  fetch(`https://api.themoviedb.org/3/search/tv?api_key=13842c72b65b743bc68b644cf060c727&query=${req.params.tvTitle}`)
+  .then(res => res.json())
   .then(data => {
-    res.json(data);
+    res.status(200).json(data);
   })
-  res.status(200).json();
+});
+
+//get cast with search by movie id 
+app.get('/movie/:id', (req, res) => {
+  fetch(`https://api.themoviedb.org/3/movie/${req.params.id}/credits?api_key=13842c72b65b743bc68b644cf060c727&append_to_response=images`)
+  .then(res => res.json())
+  .then(data => {
+    res.status(200).json(data);
+  })
+});
+
+//get cast with search by tv id
+app.get('/tv/:id', (req, res) => {
+  fetch(`https://api.themoviedb.org/3/tv/${req.params.id}/credits?api_key=13842c72b65b743bc68b644cf060c727&append_to_response=images`)
+  .then(res => res.json())
+  .then(data => {
+    res.status(200).json(data);
+  })
 });
 
 function runServer(port = PORT) {
