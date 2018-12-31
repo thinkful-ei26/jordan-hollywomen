@@ -22,6 +22,14 @@ app.use(
   })
 );
 
+app.get('/search/:movieName', (req, res) => {
+  fetch(`https://api.themoviedb.org/3/search/${req.params.movieName}?api_key=13842c72b65b743bc68b644cf060c727`)
+  .then(castAndCrew => {
+    res.json(castAndCrew);
+  })
+  res.status(200).json();
+});
+
 function runServer(port = PORT) {
   const server = app
     .listen(port, () => {
