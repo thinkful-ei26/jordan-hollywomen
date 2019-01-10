@@ -25,9 +25,10 @@ app.use(
 
 //search by movie title
 app.get('/search/:movieTitle', (req, res) => {
-  fetch(`https://api.themoviedb.org/3/search/movie?api_key=13842c72b65b743bc68b644cf060c727&query=${req.params.movieTitle}`)
+  fetch(`https://api.themoviedb.org/3/search/movie?api_key=13842c72b65b743bc68b644cf060c727&query=${req.params.movieTitle}&append_to_response=images`)
   .then(res => res.json())
   .then(data => {
+    console.log(data)
     res.status(200).json(data);
   })
 });
@@ -43,19 +44,19 @@ app.get('/search/tv/:tvTitle', (req, res) => {
 
 //get cast with search by movie id 
 app.get('/movie/:id', (req, res) => {
-  fetch(`https://api.themoviedb.org/3/movie/${req.params.id}/credits?api_key=13842c72b65b743bc68b644cf060c727&append_to_response=images`)
+  fetch(`https://api.themoviedb.org/3/movie/${req.params.id}/credits?api_key=13842c72b65b743bc68b644cf060c727`)
   .then(res => res.json())
-  .then(data => {
-    res.status(200).json(data);
+  .then(_data => {
+    res.status(200).json(_data);
   })
 });
 
 //get cast with search by tv id
 app.get('/tv/:id', (req, res) => {
-  fetch(`https://api.themoviedb.org/3/tv/${req.params.id}/credits?api_key=13842c72b65b743bc68b644cf060c727&append_to_response=images`)
+  fetch(`https://api.themoviedb.org/3/tv/${req.params.id}/credits?api_key=13842c72b65b743bc68b644cf060c727`)
   .then(res => res.json())
-  .then(data => {
-    res.status(200).json(data);
+  .then(_data => {
+    res.status(200).json(_data);
   })
 });
 
