@@ -5,12 +5,12 @@ const cors = require('cors');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 
-const { PORT, CLIENT_ORIGIN } = require('./config');
+const { PORT, CLIENT_ORIGIN, MONGODB_URI } = require('./config');
 const { dbConnect } = require('./db-mongoose');
 const fetch = require('isomorphic-fetch');
 // const {dbConnect} = require('./db-knex');
 
-const router = require('./routes/history')
+const historyRouter = require('./routes/history')
 
 const app = express();
 
@@ -31,7 +31,7 @@ app.use(
 app.use(express.json());
 
 // Mount routers
-app.use('/history', notesRouter);
+app.use('/', historyRouter);
 
 // Custom 404 Not Found route handler
 app.use((req, res, next) => {
@@ -50,7 +50,6 @@ app.use((err, req, res, next) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 });
-
 
 
 //search by movie title

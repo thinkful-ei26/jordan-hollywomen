@@ -13,6 +13,6 @@ historySchema.set('toJSON', {
     }
   });
   
-  const History = mongoose.model('History', historySchema); 
+  const History = mongoose.model('History', historySchema, 'history'); 
   
   module.exports = History;

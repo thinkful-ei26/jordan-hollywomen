@@ -7,6 +7,7 @@ const { DATABASE_URL } = require('./config');
 // const {History} = require('./models');
 
 function dbConnect(url = DATABASE_URL) {
+  console.log('url:', url)
   return mongoose.connect(url)
     .catch(err => {
       console.error('Mongoose failed to connect');

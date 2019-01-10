@@ -4,10 +4,10 @@ const mongoose = require('mongoose');
 const History = require('../models/history');
 
 
-const router = express.Router();
+const historyRouter = express.Router();
 
 /* ========== GET/READ ALL SEARCHES ========== */
-router.get('/history', (req, res, next) => {
+historyRouter.get('/history', (req, res, next) => {
     // const { searchTerm } = req.query;
 
     History.find()
@@ -21,7 +21,7 @@ router.get('/history', (req, res, next) => {
 });
 
 /* ========== GET/READ A SINGLE ITEM ========== */
-router.get('/history/:id', (req, res, next) => {
+historyRouter.get('/history/:id', (req, res, next) => {
     const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -40,7 +40,7 @@ router.get('/history/:id', (req, res, next) => {
 });
 
 /* ========== POST/CREATE AN ITEM ========== */
-router.post('/history', (req, res, next) => {
+historyRouter.post('/history', (req, res, next) => {
     const { searchTerm, searchDate } = req.body;
 
     if (!searchTerm) {
@@ -65,7 +65,7 @@ router.post('/history', (req, res, next) => {
     });
 
 /* ========== PUT/UPDATE A SINGLE ITEM ========== */
-router.put('/history/:id', (req, res, next) => {
+historyRouter.put('/history/:id', (req, res, next) => {
     const id = req.params.id;
     const { searchTerm, searchDate } = req.body;
   
@@ -98,4 +98,4 @@ router.put('/history/:id', (req, res, next) => {
   
   });
 
-    module.exports = router;
+module.exports = historyRouter;
