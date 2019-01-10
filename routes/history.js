@@ -44,3 +44,5 @@ router.post('/history', (req, res, next) => {
       newSearch.save();
       })
     });
+
+    module.exports = router;
