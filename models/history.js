@@ -1,8 +1,8 @@
 const mongoose = require ('mongoose');
 
 const historySchema = new mongoose.Schema({
-    query: { type: String, required: true },
-    time : { type: Date, default: Date.now }
+    searchTerm: { type: String, required: true },
+    searchDate : { type: Date, default: Date.now }
 })
 
 historySchema.set('toJSON', {
