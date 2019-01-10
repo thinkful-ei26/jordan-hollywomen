@@ -3,14 +3,18 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const mongoose = require('mongoose');
 
 const { PORT, CLIENT_ORIGIN } = require('./config');
 const { dbConnect } = require('./db-mongoose');
 const fetch = require('isomorphic-fetch');
 // const {dbConnect} = require('./db-knex');
 
+const router = require('./routes/history')
+
 const app = express();
 
+//logs requests, skips during testing
 app.use(
   morgan(process.env.NODE_ENV === 'production' ? 'common' : 'dev', {
     skip: (req, res) => process.env.NODE_ENV === 'test'
@@ -22,6 +26,32 @@ app.use(
     origin: CLIENT_ORIGIN
   })
 );
+
+// Parse request body
+app.use(express.json());
+
+// Mount routers
+app.use('/history', notesRouter);
+
+// Custom 404 Not Found route handler
+app.use((req, res, next) => {
+  const err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+// Custom Error Handler
+app.use((err, req, res, next) => {
+  if (err.status) {
+    const errBody = Object.assign({}, err, { message: err.message });
+    res.status(err.status).json(errBody);
+  } else {
+    // console.error(err);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+
 
 //search by movie title
 app.get('/search/:movieTitle', (req, res) => {
