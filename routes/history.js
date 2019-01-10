@@ -6,7 +6,7 @@ const History = require('../models/history');
 
 const router = express.Router();
 
-//get all recent searches (get)
+/* ========== GET/READ ALL SEARCHES ========== */
 router.get('/history', (req, res, next) => {
     // const { searchTerm } = req.query;
 
@@ -20,7 +20,26 @@ router.get('/history', (req, res, next) => {
     })
 });
 
-//add to recent searches (post)
+/* ========== GET/READ A SINGLE ITEM ========== */
+router.get('/history/:id', (req, res, next) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      const err = new Error('The `id` is not valid');
+      err.status = 400;
+      return next(err);
+    }
+
+    return History.findById(id)
+    .then(results => {
+      res.json(results);
+    })
+    .catch(err => {
+      next(err);
+    })
+});
+
+/* ========== POST/CREATE AN ITEM ========== */
 router.post('/history', (req, res, next) => {
     const { searchTerm, searchDate } = req.body;
 
@@ -44,5 +63,39 @@ router.post('/history', (req, res, next) => {
       newSearch.save();
       })
     });
+
+/* ========== PUT/UPDATE A SINGLE ITEM ========== */
+router.put('/history/:id', (req, res, next) => {
+    const id = req.params.id;
+    const { searchTerm, searchDate } = req.body;
+  
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      const err = new Error('The `id` is not valid');
+      err.status = 400;
+      return next(err);
+    }
+  
+    if (!searchTerm) {
+      const err = new Error('Missing `search term` in request body');
+      err.status = 400;
+      return next(err);
+    }
+  
+    const updatedSearch = {
+      id: id,
+      searchTerm: searchTerm,
+      searchDate: searchDate
+    }
+  
+    return History.findByIdAndUpdate(id, updatedSearch)
+    .then(results => {
+      res.json(results);
+    })
+    .catch(err => {
+      next(err);
+      updatedNote.save(); 
+    })
+  
+  });
 
     module.exports = router;
