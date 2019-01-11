@@ -7,7 +7,7 @@ const History = require('../models/history');
 const historyRouter = express.Router();
 
 /* ========== GET/READ ALL SEARCHES ========== */
-historyRouter.get('/history', (req, res, next) => {
+historyRouter.get('/', (req, res, next) => {
     // const { searchTerm } = req.query;
 
     History.find()
@@ -21,7 +21,7 @@ historyRouter.get('/history', (req, res, next) => {
 });
 
 /* ========== GET/READ A SINGLE ITEM ========== */
-historyRouter.get('/history/:id', (req, res, next) => {
+historyRouter.get('/:id', (req, res, next) => {
     const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -40,9 +40,9 @@ historyRouter.get('/history/:id', (req, res, next) => {
 });
 
 /* ========== POST/CREATE AN ITEM ========== */
-historyRouter.post('/history', (req, res, next) => {
+historyRouter.post('/', (req, res, next) => {
     const { searchTerm, searchDate } = req.body;
-
+  console.log('request body:', req.body)
     if (!searchTerm) {
         const err = new Error('Missing `search term` in request body');
         err.status = 400;
@@ -60,12 +60,11 @@ historyRouter.post('/history', (req, res, next) => {
     })
     .catch(err => {
         next(err);
-      newSearch.save();
       })
     });
 
 /* ========== PUT/UPDATE A SINGLE ITEM ========== */
-historyRouter.put('/history/:id', (req, res, next) => {
+historyRouter.put('/:id', (req, res, next) => {
     const id = req.params.id;
     const { searchTerm, searchDate } = req.body;
   

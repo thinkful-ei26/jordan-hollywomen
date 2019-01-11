@@ -31,26 +31,7 @@ app.use(
 app.use(express.json());
 
 // Mount routers
-app.use('/', historyRouter);
-
-// Custom 404 Not Found route handler
-app.use((req, res, next) => {
-  const err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-// Custom Error Handler
-app.use((err, req, res, next) => {
-  if (err.status) {
-    const errBody = Object.assign({}, err, { message: err.message });
-    res.status(err.status).json(errBody);
-  } else {
-    // console.error(err);
-    res.status(500).json({ message: 'Internal Server Error' });
-  }
-});
-
+app.use('/history', historyRouter);
 
 //search by movie title
 app.get('/search/:movieTitle', (req, res) => {
@@ -87,6 +68,24 @@ app.get('/tv/:id', (req, res) => {
   .then(_data => {
     res.status(200).json(_data);
   })
+});
+
+// Custom 404 Not Found route handler
+app.use((req, res, next) => {
+  const err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+// Custom Error Handler
+app.use((err, req, res, next) => {
+  if (err.status) {
+    const errBody = Object.assign({}, err, { message: err.message });
+    res.status(err.status).json(errBody);
+  } else {
+    // console.error(err);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
 });
 
 function runServer(port = PORT) {
