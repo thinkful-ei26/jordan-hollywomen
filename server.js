@@ -1,4 +1,6 @@
-const { GraphQLServer } = require('graphql-yoga')
+const mongoose = require('mongoose');
+const { DATABASE_URL } = require('./config');
+const { GraphQLServer } = require('graphql-yoga');
 
 const typeDefs = './schema.graphql';
 const Query = require ('./resolvers/query');
@@ -10,4 +12,5 @@ const server = new GraphQLServer({
   resolvers: { Query, Movie, Tv }
 });
 
+mongoose.connect(DATABASE_URL)
 server.start(() => console.log('Server is running'))
