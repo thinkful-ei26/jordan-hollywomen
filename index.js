@@ -3,12 +3,12 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
-const mongoose = require('mongoose');
-
 const { PORT, CLIENT_ORIGIN, MONGODB_URI } = require('./config');
 const { dbConnect } = require('./db-mongoose');
 const fetch = require('isomorphic-fetch');
 // const {dbConnect} = require('./db-knex');
+// const mongoose = require('mongoose');
+
 
 const historyRouter = require('./routes/history')
 
@@ -35,7 +35,7 @@ app.use('/history', historyRouter);
 
 //search by movie title
 app.get('/search/:movieTitle', (req, res) => {
-  fetch(`https://api.themoviedb.org/3/search/movie?api_key=13842c72b65b743bc68b644cf060c727&query=${req.params.movieTitle}&append_to_response=images`)
+  fetch(`https://api.themoviedb.org/3/search/movie?api_key=13842c72b65b743bc68b644cf060c727&query=${req.params.movieTitle}`)
   .then(res => res.json())
   .then(data => {
     console.log(data)

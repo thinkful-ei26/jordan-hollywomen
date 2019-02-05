@@ -1,0 +1,35 @@
+type Query {
+    movie(title: String): [Movie]
+    tv(title: String): [Tv]
+}
+
+type Movie {
+    id: Int
+    title: String!
+    backdrop_path: String  
+    poster_path: String
+    movieCast(id: Int): [MovieCast] 
+}
+
+type Tv {
+    id: Int
+    name: String!
+    backdrop_path: String  
+    poster_path: String 
+    tvCast(id: Int): [TvCast] 
+
+}
+
+type MovieCast {
+    gender: Int 
+    character: String
+    name: String
+    profile_path: String 
+}
+
+type TvCast {
+    gender: Int 
+    character: String
+    name: String
+    profile_path: String 
+}
