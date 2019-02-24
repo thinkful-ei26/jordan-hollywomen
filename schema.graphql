@@ -8,7 +8,7 @@ type Movie {
     title: String!
     backdrop_path: String  
     poster_path: String
-    movieCast(id: Int): [MovieCast] 
+    cast: [Cast] 
 }
 
 type Tv {
@@ -16,18 +16,10 @@ type Tv {
     name: String!
     backdrop_path: String  
     poster_path: String 
-    tvCast(id: Int): [TvCast] 
-
+    cast: [Cast] 
 }
 
-type MovieCast {
-    gender: Int 
-    character: String
-    name: String
-    profile_path: String 
-}
-
-type TvCast {
+type Cast {
     gender: Int 
     character: String
     name: String
