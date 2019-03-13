@@ -38,7 +38,6 @@ app.get('/search/:movieTitle', (req, res) => {
   fetch(`https://api.themoviedb.org/3/search/movie?api_key=13842c72b65b743bc68b644cf060c727&query=${req.params.movieTitle}`)
   .then(res => res.json())
   .then(data => {
-    console.log(data)
     res.status(200).json(data);
   })
 });

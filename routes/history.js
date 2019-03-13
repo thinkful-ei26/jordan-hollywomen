@@ -42,7 +42,6 @@ historyRouter.get('/:id', (req, res, next) => {
 /* ========== POST/CREATE AN ITEM ========== */
 historyRouter.post('/', (req, res, next) => {
     const { searchTerm, searchDate } = req.body;
-  console.log('request body:', req.body)
     if (!searchTerm) {
         const err = new Error('Missing `search term` in request body');
         err.status = 400;
